@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+
+<div>
+  <%= link_to "Edit this Product", edit_product_path(@product) %> |
+  <%= link_to "Back to Products", products_path %>
+</div>
+<table class="styled-table">
+  <tr>
+    <td><b>Imagen:</b></td>
+    <td><i><%= @product.image %></i></td>
+  <tr>
+  <tr>
+    <td><b>Producto:</b></td>
+    <td><i><%= @product.name %></i></td>
+  <tr>
+  <tr>
+    <td><b>Precio:</b></td>
+    <td><i><%= @product.price %></i></td>
+  <tr>
+</table>
+<div>
+  <%= button_to "Destroy", @product, method: :delete, class:"button-2" %>
+</div>

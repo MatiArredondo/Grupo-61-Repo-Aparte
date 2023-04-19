@@ -1,7 +1,14 @@
 class ProductsController < ApplicationController
   def index
-    @product = Product.find([params[:id_product]])
-    render json: @product
+    @product = Product.all
+  end
+
+  def show
+    @product = Product.find(params[:id])
+  end
+
+  def edit
+    @product = Product.find(params[:id])
   end
 
   def create
@@ -32,6 +39,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price)
+    params.require(:product).permit(:name, :price, :image)
   end
 end
