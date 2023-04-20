@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @product = Product.all
+    @products = Product.all
   end
 
   def show
@@ -11,31 +11,36 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
+  def new
+    @product = Product.new
+  end
+
   def create
     @product = Product.new(product_params)
     if @product.save
-      render json: {message: "El producto se creo correctamente."}
+      render json: {message: "Producto was successfully created."}
     else
       render @product.errors, status: :unprocessable_entity
     end
   end
 
+  def edit
+    @product = Product.find(params[:id])
+  end
+
   def update
-    @product = Product.find(params[:id_product])
+    @product = Product.find(params[:id])
     if @product.update(product_params)
-      render json: {message: "El producto se actualizo correctamente."}
+      redirect_to product_url(@product), notice: "Product was successfully updated."
     else
-      render json:@product.errors, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @product = Product.find(params[:id_product])
-    if @product.destroy
-      render json: {message: "El producto se eliminó correctamente."}
-    else
-      render json: @product.errors, status: :unprocessable_entity
-    end
+    @product = Product.find(params[:id])
+    @product.delete
+    redirect_to products_url, notice: "Product was successfully destroyed."
   end
 
   def product_params

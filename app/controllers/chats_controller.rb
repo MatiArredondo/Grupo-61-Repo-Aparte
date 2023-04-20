@@ -1,24 +1,18 @@
 class ChatsController < ApplicationController
   def index
-    @chat = Chat.find([params[:id_chat]])
-    render json: @chat
+    @chat = Chat.all
+  end
+
+  def show
+    @chat = Chat.find(params[:id])
   end
 
   def create
     @chat = Chat.new(chat_params)
     if @chat.save
-      render json: {message: "El chat se creo correctamente."}
+      redirect_to chat_path(@chat.id)
     else
       render @chat.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    @chat = Chat.find(params[:id_chat])
-    if @chat.update(chat_params)
-      render json: @chat
-    else
-      render json:@chat.errors, status: :unprocessable_entity
     end
   end
 

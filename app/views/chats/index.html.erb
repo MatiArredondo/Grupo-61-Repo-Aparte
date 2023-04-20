@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<a class="button" href="chats/create"> New Chat </a>
+
+<div id="chat">
+  <h1> Chat </h1>
+  <% @chat.each do |chat| %>
+    <td><%= chat %></td>
+    <td><%= link_to "Open Chat", chat %></td>
+  <% end %>
+</div>
+<div>
+  <%= link_to "Back to products", products_path %>
+</div>

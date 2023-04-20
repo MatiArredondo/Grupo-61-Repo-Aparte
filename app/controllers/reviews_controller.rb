@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
         @review = @user.reviews.build(review_params.merge(product_id: @product.id))
 
         if @review.save
-            render json: {message: "La review se creo correctamente."}
+            render json: {message: "Review was successfully created."}
         else
             render json: @review.errors, status: :unprocessable_entity
         end
@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
         @review = @user.reviews.find(params[:id])
 
         if @review.update(review_params)
-            render json: {message: "La review se edito correctamente."}
+            render json: {message: "Review was successfully updated."}
         else
             render json: @review.errors, status: :unprocessable_entity
         end
@@ -40,8 +40,8 @@ class ReviewsController < ApplicationController
         @user = User.find(params[:id_user])
         @review = @user.reviews.find(params[:id])
 
-        if @review.destroy
-            render json: {message: "La review se eliminó correctamente."}
+        if @review.delete
+            render json: {message: "Review was sucessfully deleted."}
         else
             render json: @review.errors, status: :unprocessable_entity
         end
