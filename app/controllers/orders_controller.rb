@@ -1,13 +1,15 @@
 class OrdersController < ApplicationController
     include Devise::Controllers::Helpers
+
     def order_params
         params.require(:order).permit(:id_product, :description, :status, :order_date)
     end
 
 
     def index
-        @orders_user = current_user.order.all
+        @orders = Order.all
     end
+
 
     def show
         @orders_user = current_user.order
@@ -15,7 +17,7 @@ class OrdersController < ApplicationController
 
 
     def  create
-        @order = current_user.order.create(order_param)
+        @order = current_user.order.create(order_params)
 
         if @order.save
             render json: {message: "La orden a sido recibida"}

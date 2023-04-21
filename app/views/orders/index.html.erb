@@ -1,0 +1,26 @@
+<p style="color: green"><%= notice %></p>
+
+<div id="products">
+  <h1> Products </h1>
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <% product = Product.find_by(id: order.id_product) %>
+        <tr>
+          <td><%= image_tag(product.image) %></td>
+          <td><%= product.name %></td>
+          <td><%= product.price %></td>
+          <td><%= order.status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
