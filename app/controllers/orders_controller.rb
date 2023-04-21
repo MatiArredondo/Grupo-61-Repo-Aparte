@@ -1,20 +1,21 @@
 class OrdersController < ApplicationController
+    include Devise::Controllers::Helpers
     def order_params
-        params.require(:order).permit(:id_product, :id_user, :description, :status, :order_date)
+        params.require(:order).permit(:id_product, :description, :status, :order_date)
     end
 
 
     def index
-        @orders_user = Order.where("id_user = ?", params[:id_user])
-        render json: @orders_user
+        @orders_user = current_user.order.all
+    end
+
+    def show
+        @orders_user = current_user.order
     end
 
 
     def  create
-        @user = User.find(params[:id_user])
-        @product = Product.find(params[:id_product])
-
-        @order = @user.order.build(order_params.merge(product_id: @product.id))
+        @order = current_user.order.create(order_param)
 
         if @order.save
             render json: {message: "La orden a sido recibida"}
@@ -22,7 +23,6 @@ class OrdersController < ApplicationController
             render json: @order.errors, status: :unprocessable_entity
         end
     end
-
 """
 update prox sprint
 """
@@ -51,5 +51,3 @@ update prox sprint
 
 end
 
-
-end

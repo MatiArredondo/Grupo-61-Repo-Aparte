@@ -21,6 +21,7 @@
 
       <% if current_user.email.include?("@admin") %>
         <% current_user.role = 1 %>
+        <% current_user.save %>
       <% end %>
 
 

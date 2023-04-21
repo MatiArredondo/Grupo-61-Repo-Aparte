@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    if user_signed_in?
+      @products = Product.all
+    else
+      render json: "No has iniciado sesion"
+    end
   end
 
   def show

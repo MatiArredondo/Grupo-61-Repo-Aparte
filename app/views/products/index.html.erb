@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
-<a class="button" href="products/new"> New </a>
+<% if current_user.admin? %>
+  <a class="button" href="products/new"> New </a>
+<% end %>
+
 <div>
 <%= link_to "Chats", "/chats"%>
 </div>
