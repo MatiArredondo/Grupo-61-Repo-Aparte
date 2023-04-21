@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get "/articles", to: "articles#index"
   resources :products
   resources :chats
+  resources :orders
 end

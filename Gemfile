@@ -72,3 +72,5 @@ group :test do
 end
 
 gem "devise"
+
+gem "paperclip", "~> 6.0.0"

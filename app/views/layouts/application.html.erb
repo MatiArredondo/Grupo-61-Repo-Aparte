@@ -1,24 +1,93 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ProyectoSoftware</title>
+
+    <title>Proyecto Software</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+
   </head>
 
-  <body>
+  <body class="m-4">
 
     <% if user_signed_in? %>
-      <p>Logged in as <%= current_user.name %></p>
-      <%= link_to "Edit", edit_user_registration_path %>
-      <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+
+      <% if current_user.email.include?("@admin") %>
+        <% current_user.role = 1 %>
+      <% end %>
+
+
+        <nav>
+
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+
+              <%= link_to current_user.name, edit_user_registration_path, class: "navbar-item" %>
+
+              <% if current_user.admin? %>
+
+
+                <%= link_to "Mis Reservas", orders_path(current_user), class: "navbar-item" %>
+
+
+                <a class="navbar-item">
+                  Ver Reseñas
+                </a>
+
+                <a class="navbar-item">
+                  Ver Usuarios
+                </a>
+
+              <% else %>
+
+                <%= link_to "Mis Reservas", order_path(current_user.id), class: "navbar-item" %>
+
+                <a class="navbar-item">
+                  Mis Reseñas
+                </a>
+
+              <% end %>
+
+              </div>
+
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <%= button_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "button is-primary"%>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </nav>
+
     <% else %>
-      <%= link_to "Sign in", new_user_session_path %>
-      <%= link_to "Sign up", new_user_registration_path %>
+
+      <nav>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+
+              <%= link_to new_user_registration_path, class: "button is-primary" do %>
+                <strong>Registrarse</strong>
+              <% end %>
+
+              <%= link_to "Inicar Sesión", new_user_session_path, class: "button is-light" %>
+
+            </div>
+          </div>
+        </div>
+
+      </nav>
+
     <% end %>
 
     <% if flash[:notice] %>

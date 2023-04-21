@@ -4,4 +4,5 @@ class Product < ApplicationRecord
     has_one :user, through: :order
     validates :name, presence: true
     validates :price, presence: true
+
   end
